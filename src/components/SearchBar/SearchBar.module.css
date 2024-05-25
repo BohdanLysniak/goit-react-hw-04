@@ -1,0 +1,34 @@
+.header {
+  background-color: blueviolet;
+  width: 1260px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  gap: 120px;
+}
+
+.field {
+  height: 40px;
+  width: 500px;
+  outline: transparent;
+  padding: 4px 4px 4px 16px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.btnSearch {
+  height: 50px;
+  outline: transparent;
+  padding: 4px 4px 4px 16px;
+  font-size: 20px;
+  width: 300px;
+  border-radius: 10px;
+  outline: transparent;
+}

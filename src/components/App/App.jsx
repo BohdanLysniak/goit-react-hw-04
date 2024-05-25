@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import clsx from "clsx";
 import SearchBar from "../SearchBar/SearchBar";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../Loader/Loader";
 import { getPhotos } from "../../../apiService/unsplash-api";
-import "./App.css";
+import css from "./App.module.css";
 import toast, { Toaster } from "react-hot-toast";
 import ImageModal from "../ImageModal/ImageModal";
 
@@ -88,7 +89,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className={clsx(css.appWrapper)}>
       <SearchBar onSearch={handleSearch} />
       {gallery.length > 0 && (
         <ImageGallery images={gallery} onOpenModal={openModal} />
@@ -106,7 +107,7 @@ function App() {
         modalImageUrl={modalImageSrc}
         modalImageAlt={modalImageAlt}
       />
-    </>
+    </div>
   );
 }
 

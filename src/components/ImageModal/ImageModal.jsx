@@ -5,7 +5,7 @@ Modal.setAppElement("#root");
 export default function ImageModal({
   onOpen,
   onClose,
-  styles,
+  style,
   modalImageUrl,
   modalImageAlt
 }) {
@@ -13,11 +13,10 @@ export default function ImageModal({
     <Modal
       isOpen={onOpen}
       onRequestClose={onClose}
-      style={styles}
+      style={style}
       contentLabel="Modal image"
     >
       <img src={modalImageUrl} alt={modalImageAlt} />
-      {console.log(modalImageUrl)}
     </Modal>
   );
 }

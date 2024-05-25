@@ -4,7 +4,7 @@ import css from "./ImageGallery.module.css";
 
 export default function ImageGallery({ images, onOpenModal }) {
   return (
-    <ul>
+    <ul className={clsx(css.imageList)}>
       {images.map(image => (
         <li className={clsx(css.galleryItem)} key={image.id}>
           <ImageCard imageData={image} onOpenModal={onOpenModal} />

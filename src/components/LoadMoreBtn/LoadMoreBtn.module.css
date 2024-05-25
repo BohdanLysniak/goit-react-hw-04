@@ -1,0 +1,14 @@
+.loadMoreBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  outline: transparent;
+  padding: 12px;
+  font-size: 20px;
+  width: 300px;
+  border-radius: 10px;
+  outline: transparent;
+  margin-left: auto;
+  margin-right: auto;
+}
