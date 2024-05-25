@@ -13,7 +13,7 @@ function App() {
   const [gallery, setGallery] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [IsError, setIsError] = useState(false);
 
@@ -62,7 +62,7 @@ function App() {
     <>
       <SearchBar onSearch={handleSearch} />
       {gallery.length > 0 && <ImageGallery images={gallery} />}
-      {gallery.length > 0 && !isLoading && (
+      {page < totalPages && gallery.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
       {IsError && <ErrorMessage />}
