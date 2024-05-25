@@ -4,6 +4,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { getPhotos } from "../../../apiService/unsplash-api";
 import "./App.css";
 import { ErrorMessage } from "formik";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [gallery, setGallery] = useState([]);
@@ -19,8 +20,10 @@ function App() {
       try {
         setIsLoading(true);
         setIsError(false);
-        const result = await getPhotos(searchQuery, page);
-        setGallery(prevState => [...prevState, ...result]);
+        const { result } = await getPhotos(searchQuery, page);
+        setGallery(prevState => {
+          return [...prevState, ...result];
+        });
       } catch (error) {
         setIsError(true);
       } finally {
@@ -44,6 +47,7 @@ function App() {
     <>
       <SearchBar onSearch={handleSearch} />
       {IsError && <ErrorMessage />}
+      <Toaster />
     </>
   );
 }
