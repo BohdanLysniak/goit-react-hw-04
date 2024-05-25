@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../Loader/Loader";
 import { getPhotos } from "../../../apiService/unsplash-api";
 import "./App.css";
-import { ErrorMessage } from "formik";
 import toast, { Toaster } from "react-hot-toast";
-import ImageGallery from "../ImageGallery/ImageGallery";
 
 function App() {
   const [gallery, setGallery] = useState([]);
@@ -60,8 +61,11 @@ function App() {
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      <ImageGallery images={gallery} />
-      {console.log(gallery)}
+      {gallery.length > 0 && <ImageGallery images={gallery} />}
+      {gallery.length > 0 && !isLoading && (
+        <LoadMoreBtn onClick={handleLoadMore} />
+      )}
+      {IsError && <ErrorMessage />}
       {isLoading && <Loader />}
       <Toaster />
     </>
