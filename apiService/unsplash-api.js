@@ -15,6 +15,5 @@ export const getPhotos = async (searchValue, currentPage) => {
     }
   });
 
-  console.log(response.data);
   return response.data;
 };

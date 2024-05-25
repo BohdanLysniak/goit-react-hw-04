@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
@@ -8,6 +7,7 @@ import Loader from "../Loader/Loader";
 import { getPhotos } from "../../../apiService/unsplash-api";
 import "./App.css";
 import toast, { Toaster } from "react-hot-toast";
+import ImageModal from "../ImageModal/ImageModal";
 
 function App() {
   const [gallery, setGallery] = useState([]);
@@ -16,6 +16,9 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [IsError, setIsError] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalImageSrc, setModalImageSrc] = useState("");
+  const [modalImageAlt, setModalImageAlt] = useState("");
 
   useEffect(() => {
     if (!searchQuery.trim()) return;
@@ -30,7 +33,7 @@ function App() {
             duration: 5000,
             position: "top-center",
             style: {
-              color: "pink",
+              color: "blue",
               backgroundColor: "white"
             }
           });
@@ -58,16 +61,51 @@ function App() {
     setPage(page + 1);
   };
 
+  const openModal = (imgUrl, alt) => {
+    setModalIsOpen(true);
+    setModalImageSrc(imgUrl);
+    setModalImageAlt(alt);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setModalImageSrc("");
+    setModalImageAlt("");
+  };
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)"
+    },
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.7)"
+    }
+  };
+
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      {gallery.length > 0 && <ImageGallery images={gallery} />}
+      {gallery.length > 0 && (
+        <ImageGallery images={gallery} onOpenModal={openModal} />
+      )}
       {page < totalPages && gallery.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
       {IsError && <ErrorMessage />}
       {isLoading && <Loader />}
       <Toaster />
+      <ImageModal
+        onOpen={modalIsOpen}
+        onClose={closeModal}
+        style={customStyles}
+        modalImageUrl={modalImageSrc}
+        modalImageAlt={modalImageAlt}
+      />
     </>
   );
 }
