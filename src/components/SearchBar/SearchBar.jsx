@@ -1,8 +1,10 @@
+import toast, { Toaster } from "react-hot-toast";
 import { Field, Form, Formik } from "formik";
 
 export default function SearchBar({ onSearch }) {
   return (
     <header>
+      <Toaster position="top-center" reverseOrder={false} />
       <Formik
         initialValues={{ query: "" }}
         onSubmit={(values, actions) => {
