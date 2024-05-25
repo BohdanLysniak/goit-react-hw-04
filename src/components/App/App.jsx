@@ -5,13 +5,14 @@ import Loader from "../Loader/Loader";
 import { getPhotos } from "../../../apiService/unsplash-api";
 import "./App.css";
 import { ErrorMessage } from "formik";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import ImageGallery from "../ImageGallery/ImageGallery";
 
 function App() {
   const [gallery, setGallery] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [IsError, setIsError] = useState(false);
 
@@ -22,9 +23,20 @@ function App() {
       try {
         setIsLoading(true);
         setIsError(false);
-        const result = await getPhotos(searchQuery, page);
+        const { results, total_pages } = await getPhotos(searchQuery, page);
+        if (total_pages === 0) {
+          toast("No image was found for your request", {
+            duration: 5000,
+            position: "top-center",
+            style: {
+              color: "pink",
+              backgroundColor: "white"
+            }
+          });
+        }
+        setTotalPages(total_pages);
         setGallery(prevState => {
-          [...prevState, ...result];
+          return [...prevState, ...results];
         });
       } catch (error) {
         setIsError(true);
@@ -48,7 +60,8 @@ function App() {
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      {gallery.length > 0 && <ImageGallery images={gallery} />}
+      <ImageGallery images={gallery} />
+      {console.log(gallery)}
       {isLoading && <Loader />}
       <Toaster />
     </>
