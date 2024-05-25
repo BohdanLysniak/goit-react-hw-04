@@ -19,8 +19,8 @@ function App() {
       try {
         setIsLoading(true);
         setIsError(false);
-        const data = await getPhotos(searchQuery, page);
-        setGallery(prevState => [...prevState, ...data]);
+        const result = await getPhotos(searchQuery, page);
+        setGallery(prevState => [...prevState, ...result]);
       } catch (error) {
         setIsError(true);
       } finally {
