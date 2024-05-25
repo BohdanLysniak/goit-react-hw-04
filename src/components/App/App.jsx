@@ -48,7 +48,6 @@ function App() {
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      {IsError && <ErrorMessage />}
       {gallery.length > 0 && <ImageGallery images={gallery} />}
       {isLoading && <Loader />}
       <Toaster />
